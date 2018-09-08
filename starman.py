@@ -1,17 +1,9 @@
 import subprocess
 import random
-# import playsound
-# playsound.playsound('./starman.mp3', True)
 def play_mp3(path):
     subprocess.Popen(['mpg321', '-q', path]).wait()
-word_list = [["S","P","A","C","E","M","A","N"], ["B","O","W","I","E"]]
-word = word_list[random.randrange(0,len(word_list))]
-word_reveal = []
-for i in range(0,len(word)):
-    word_reveal.append("")
-spaceman = 0
-count = 0
-spacePicture = ["\
+word_list = [["S","T","A","R","D","U","S","T"], ["B","O","W","I","E"]]
+spacePicture = [["\
 .........................=MMMMM?............................","\
 ...................MOM MMMMMMMMMMMMMM7.  .   . .","\
 ............ ..7MMMMMMMMMMMMMMMMMMMMMMMMMMM=.","\
@@ -62,42 +54,56 @@ spacePicture = ["\
 ....................M................M......MMM.............","\
 .....................N..............M....... ~..............","\
 .......................M~.........M ..........8.............\
-"]
-blankPicture = []
-while (count < len(word)) and (spaceman < 7):
-    word1 = raw_input("Enter a letter: ").upper()
-    counter = 0
-    for i in range(0, len(word)):
-        if word1 == word[i]:
-            word_reveal[i] = word[i]
-            count += 1
-        else:
-            counter += 1
-    if counter == len(word):
-        spaceman += 1
-        if spaceman == 1:
-            for i in range(0,8):
-                blankPicture.append(spacePicture[i])
-        elif spaceman == 2:
-            for i in range(8,15):
-                blankPicture.append(spacePicture[i])
-        elif spaceman == 3:
-            for i in range(15,22):
-                blankPicture.append(spacePicture[i])
-        elif spaceman == 4:
-            for i in range(22,29):
-                blankPicture.append(spacePicture[i])
-        elif spaceman == 5:
-            for i in range(29,36):
-                blankPicture.append(spacePicture[i])
-        elif spaceman == 6:
-            for i in range(36,43):
-                blankPicture.append(spacePicture[i])
-        else:
-            for i in range(43,49):
-                blankPicture.append(spacePicture[i])
-    for i in blankPicture:
-        print(i)
-    if spaceman == 7:
-        play_mp3("./starman.mp3")
-    print(word_reveal)
+"], [""]]
+def game(n):
+    word = word_list[n]
+    word_reveal = []
+    for i in range(0,len(word)):
+        word_reveal.append("")
+    spaceman = 0
+    count = 0
+    realPicture = spacePicture[n]
+    blankPicture = []
+    while (count < len(word)) and (spaceman < 7):
+        word1 = raw_input("Enter a letter: ").upper()
+        counter = 0
+        for i in range(0, len(word)):
+            if word1 == word[i]:
+                word_reveal[i] = word[i]
+                count += 1
+            else:
+                counter += 1
+        if counter == len(word):
+            spaceman += 1
+            if spaceman == 1:
+                for i in range(0,8):
+                    blankPicture.append(realPicture[i])
+            elif spaceman == 2:
+                for i in range(8,15):
+                    blankPicture.append(realPicture[i])
+            elif spaceman == 3:
+                for i in range(15,22):
+                    blankPicture.append(realPicture[i])
+            elif spaceman == 4:
+                for i in range(22,29):
+                    blankPicture.append(realPicture[i])
+            elif spaceman == 5:
+                for i in range(29,36):
+                    blankPicture.append(realPicture[i])
+            elif spaceman == 6:
+                for i in range(36,43):
+                    blankPicture.append(realPicture[i])
+            else:
+                for i in range(43,49):
+                    blankPicture.append(realPicture[i])
+        for i in blankPicture:
+            print(i)
+        if spaceman == 7:
+            print("Sorry, you lost. Thanks for playing")
+            play_mp3("./starman2.mp3")
+        print(word_reveal)
+        if count == len(word):
+            print("You won!")
+            play_mp3("./starman2.mp3")
+            game(n+1)
+game(0)
