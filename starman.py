@@ -2,7 +2,7 @@ import subprocess
 import random
 def play_mp3(path):
     subprocess.Popen(['mpg321', '-q', path]).wait()
-word_list = [["S","T","A","R","D","U","S","T"], ["B","O","W","I","E"]]
+word_list = [["S","T","A","R","D","U","S","T"], ["R","U","B","Y","T","U","E","S","D","A","Y"]]
 spacePicture = [["\
 .........................=MMMMM?............................","\
 ...................MOM MMMMMMMMMMMMMM7.  .   . .","\
@@ -54,7 +54,44 @@ spacePicture = [["\
 ....................M................M......MMM.............","\
 .....................N..............M....... ~..............","\
 .......................M~.........M ..........8.............\
-"], [""]]
+"], ["                      .MMMM.      ..MMM7.","\
+                    MOOOOOOOZ. ..NOOOOOOO8.","\
+                 .MOOO......OO.MOOOO.....OO,","\
+                .OOOO.     .OOOOOO.     .$OO.","\
+               NOOOOO.8OO, 8OOOOOOO8OOO.+OOOM","\
+              .OOOOOOOOOOOOOOOOOOOOOOOOOOOOOO.","\
+              OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO.","\
+             OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOON.","\
+           .OOOOOO.   ...OOOOOO,......OOOOOOOOOM","\
+          .OOOO8.         ....         .OOOOOOOOON.","\
+        .MOOOOMMM.                      .=OOOOOOOODI","\
+     .8OOOOOMMMMMMMMM.              . .  ..DOOOOOOOOOM","\
+    .OOOOOOMMMMMMMMOOOOO+MMMMMM.  ..OOO..8OOOONOOOOOOO.","\
+     .OOOOOOMMMMMOOOOOOOOOMMMMDOOOOOOOOOOOOOOOZOOOOOMI.","\
+      .MOOOOOMMOOOOOOOOOMMOOOOOOOOOOOOOOOOOOMOOOOOO.","\
+       .MOOOOOOOOOO..O8MOOOOOOOOOOOO..OOOOODOOOOON.","\
+         MOOOOOOO:..OMMOOOOOOOOOOO?..OOOOOOOOOOOM","\
+         .OOOOO8...OOMOOOOOOOOOOO. .OOOOOOOOOOOM","\
+        .8OOOOO. .OOMOOOOOOOOOOO. .OOOOZOOOOOOM.","\
+       .MOOOO.  .OOMOOOOOOOOOOO. .OOOOOOOOOOOM.","\
+       MOOOO,. .OOMZOOOOOOOOOO=. 8OOOOMOOOOOO.","\
+       OOOOO. .OOOMOOOOOOOOOOO. .OOOOMOOOOOOM","\
+     .NOOOO.  .OOOOOOOOOOOOOO. .OOOOOMOOOOON.","\
+      OOOO?.  OOOMOOOOOOOOOOO. .OOOOMOOOOOOM.","\
+     MOOOO.  .OOOOOOOOOOOOOO.  OOOOOMOOOOOM","\
+    .MOOOO   OOOOOOOOOOOOOO8   OOOOMOOOOOO.","\
+    .OOOOO.  OOOOOOOOOOOOOO.  .OOOOMOOOOOM","\
+    .OOOOO. .OOOOOOOOOOOOOI  ..OOOMOOOOOM.","\
+    .OOOOOOOOOOOOOOOOOOOOO.  .OOODDOOOOM","\
+     MOOOOOOOOOOOOOOOOOOO.   .OOOMOOOOM.","\
+     ,OOOOOOOOOOOOOOOOOO.   .OOON8OON.","\
+     .DOOOOOOOOOOOOOOOOOO..,OOOOMM.","\
+      .OOOOOOOOOOOOOOOOOOOOOOOOD","\
+        MOOOOOOOOOOOOOOOOOOOOO?","\
+         .NOOOOOOOOOOOOOOOOOM.","\
+           .MOOOOOOOOOOOOOM.","\
+               ..MMMNMM:.\
+"]]
 def game(n):
     word = word_list[n]
     word_reveal = []
@@ -98,12 +135,30 @@ def game(n):
                     blankPicture.append(realPicture[i])
         for i in blankPicture:
             print(i)
-        if spaceman == 7:
-            print("Sorry, you lost. Thanks for playing")
-            play_mp3("./starman2.mp3")
         print(word_reveal)
-        if count == len(word):
-            print("You won!")
-            play_mp3("./starman2.mp3")
-            game(n+1)
+        if n == 0:
+            if spaceman == 7:
+                print("Sorry, you lost. Thanks for playing")
+                play_mp3("./ziggy.mp3")
+            if count == len(word):
+                print("You won! Stay here for Level 2")
+                play_mp3("./starman2.mp3")
+                game(n+1)
+        elif n == 1:
+            if spaceman == 5:
+                print("Sorry, you lost. Thanks for trying!")
+                play_mp3("./itry.mp3")
+                spaceman = 7
+            if count == len(word):
+                print("You won! Level 3 coming up...")
+                play_mp3("./goodbyeruby.mp3")
+                game(n+1)
+        elif n == 0:
+            if spaceman == 3:
+                print("Sorry, you lost. Thanks for playing")
+                play_mp3("./ziggy.mp3")
+                spaceman == 7
+            if count == len(word):
+                print("You won! Your prize is... nothing!")
+                play_mp3("./starman2.mp3")
 game(0)
